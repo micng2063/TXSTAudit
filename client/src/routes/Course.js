@@ -17,22 +17,9 @@ function Course() {
   return (
     <div>
       <h1>Scraped Course Table</h1>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Course Code</th>
-            <th>Hours</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courseData.map(({ courseCode, hours }, index) => (
-            <tr key={index}>
-              <td>{courseCode}</td>
-              <td>{hours}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {courseData.map(({ tableHTML }, index) => (
+        <div key={index} dangerouslySetInnerHTML={{ __html: tableHTML }} />
+      ))}
     </div>
   );
 }
