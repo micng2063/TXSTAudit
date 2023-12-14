@@ -1,0 +1,31 @@
+.header-content{
+    body {
+      margin: 0;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin:0;
+      padding:15px;
+    }
+    
+    .header-bar {
+      overflow: hidden;
+      background-color: #501214;
+    }
+    
+    .header-bar a {
+      float: left;
+      color: #d9a455;
+      text-align: left;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1.5em;
+      text-transform: uppercase;
+      font-weight: 300;
+      justify-content: left;
+    }
+  }
+  

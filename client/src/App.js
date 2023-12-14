@@ -1,14 +1,10 @@
 import './App.css';
+import Header from './routes/Header';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src="https://i.imgur.com/irAOc5n.png" className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+      <Header/>
     </div>
   );
 }
