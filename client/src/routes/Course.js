@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import "../css/Course.css";
+
+
+function removeParentheseses(html) {
+  const regex = /\([^)]*\)/g;
+  return html.replace(regex, ''); // Remove content inside parentheses
+}
 
 function Course() {
   const [courseData, setCourseData] = useState([]);
@@ -15,10 +22,10 @@ function Course() {
   }, []);
 
   return (
-    <div>
-      <h1>Scraped Course Table</h1>
+    <div className="course-content">
+      <h1>Course Requirement</h1>
       {courseData.map(({ tableHTML }, index) => (
-        <div key={index} dangerouslySetInnerHTML={{ __html: tableHTML }} />
+        <div key={index} dangerouslySetInnerHTML={{ __html: removeParentheseses(tableHTML) }} />
       ))}
     </div>
   );
