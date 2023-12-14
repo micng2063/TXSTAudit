@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../css/Course.css";
 
-
-function removeParentheseses(html) {
+function removeParentheses(courseCode) {
   const regex = /\([^)]*\)/g;
-  return html.replace(regex, ''); // Remove content inside parentheses
+  return courseCode.replace(regex, ''); // Remove content inside parentheses
 }
 
 function Course() {
@@ -23,10 +22,23 @@ function Course() {
 
   return (
     <div className="course-content">
-      <h1>Course Requirement</h1>
-      {courseData.map(({ tableHTML }, index) => (
-        <div key={index} dangerouslySetInnerHTML={{ __html: removeParentheseses(tableHTML) }} />
-      ))}
+      <h1>Course Requirements</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Course Code</th>
+            <th>Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courseData.map(({ courseCode, hours }, index) => (
+            <tr key={index}>
+              <td dangerouslySetInnerHTML={{ __html: removeParentheses(courseCode) }} />
+              <td>{hours}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
