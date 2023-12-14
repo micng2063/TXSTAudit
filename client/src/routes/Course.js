@@ -4,7 +4,7 @@ import "../css/Course.css";
 
 function removeParentheses(courseCode) {
   const regex = /\([^)]*\)/g;
-  return courseCode.replace(regex, ''); // Remove content inside parentheses
+  return courseCode.replace(regex, ''); 
 }
 
 function Course() {
@@ -26,15 +26,19 @@ function Course() {
       <table>
         <thead>
           <tr>
-            <th>Course Code</th>
-            <th>Hours</th>
+            <th>Fall Semester Course</th>
+            <th>Spring Semester Hours</th>
+            <th>Fall Semester Course</th>
+            <th>Spring Semester Hours</th>
           </tr>
         </thead>
         <tbody>
-          {courseData.map(({ courseCode, hours }, index) => (
+          {courseData.map(({ fallSemester, springSemester }, index) => (
             <tr key={index}>
-              <td dangerouslySetInnerHTML={{ __html: removeParentheses(courseCode) }} />
-              <td>{hours}</td>
+              <td dangerouslySetInnerHTML={{ __html: removeParentheses(fallSemester.courseCode) }} />
+              <td>{fallSemester.hours}</td>
+              <td dangerouslySetInnerHTML={{ __html: removeParentheses(springSemester.courseCode) }} />
+              <td>{springSemester.hours}</td>
             </tr>
           ))}
         </tbody>
