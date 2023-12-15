@@ -28,7 +28,7 @@ function Course() {
           <tr>
             <th>Fall Semester Course</th>
             <th>Hours</th>
-            <th>Fall Semester Course</th>
+            <th>Spring Semester Course</th>
             <th>Hours</th>
           </tr>
         </thead>

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const Scrape = async () => {
   try {
-    const response = await axios.get('http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/industrial-engineering-bs/');
+    const response = await axios.get('http://mycatalog.txstate.edu/undergraduate/science-engineering/computer/computer-science-bs/');
     const $ = cheerio.load(response.data);
 
     const courseInfo = [];
@@ -11,7 +11,7 @@ export const Scrape = async () => {
     const courseRow = $('tr.plangridyear'); 
     if (courseRow.length > 0) {
       // Process the table rows
-      courseRow.nextAll('tr.even, tr.odd, tr.plangridsum').each((_, rowElement) => {
+      courseRow.nextAll('tr.plangridyear, tr.even, tr.odd, tr.plangridsum').each((_, rowElement) => {
         const columns = $(rowElement).find('td');
 
         // Check for colspan attribute
@@ -19,22 +19,26 @@ export const Scrape = async () => {
         const colspanSpring = columns.eq(2).attr('colspan');
         let courseFall, hoursFall, courseSpring, hoursSpring;
 
-        if (colspanFall) {
-          // Handle colspan scenario
+        if (colspanFall) { // Handle colspan scenario for Spring having more courseload
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(0).text().trim();
           courseSpring = columns.eq(1).text().trim();
           hoursSpring = columns.eq(2).text().trim();
         } 
-        else if (colspanSpring){
+        else if (colspanSpring){ // Handle colspan scenario for Spring having more courseload
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(1).text().trim();
           courseSpring = columns.eq(2).text().trim();
           hoursSpring = columns.eq(2).text().trim();
         }
-        else {
-          // Regular scenario
-          courseFall = columns.eq(0).text().trim();
+        else { // Regular scenario
+          if (columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/)){
+            // courseFall = "Semester"; //Think of this later
+            courseFall = columns.eq(0).text().trim();
+          }
+          else{
+            courseFall = columns.eq(0).text().trim();
+          }
           hoursFall = columns.eq(1).text().trim();
           courseSpring = columns.eq(2).text().trim();
           hoursSpring = columns.eq(3).text().trim();
