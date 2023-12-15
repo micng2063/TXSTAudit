@@ -16,7 +16,7 @@
 	* HTML, CSS
 
 ### How to Use:
-* Clone VibeTrack repo (branch: development) [BitBucket repo](https://bitbucket.org/cs3398f23romulans/vibetrack/src/development/)
+* Clone the repo on ```main``` branch
 * Start Backend server (on a seperate terminal) and install necessary dependencies (clean cache if needed):
 ```
 cd server
