@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const Scrape = async () => {
   try {
-    const response = await axios.get('http://mycatalog.txstate.edu/undergraduate/science-engineering/computer/computer-science-bs/');
+    const response = await axios.get('http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/industrial-engineering-bs/');
     const $ = cheerio.load(response.data);
 
     const courseInfo = [];
@@ -15,16 +15,24 @@ export const Scrape = async () => {
         const columns = $(rowElement).find('td');
 
         // Check for colspan attribute
-        const colspan = columns.eq(0).attr('colspan');
+        const colspanFall = columns.eq(0).attr('colspan');
+        const colspanSpring = columns.eq(2).attr('colspan');
         let courseFall, hoursFall, courseSpring, hoursSpring;
 
-        if (colspan) {
+        if (colspanFall) {
           // Handle colspan scenario
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(0).text().trim();
           courseSpring = columns.eq(1).text().trim();
           hoursSpring = columns.eq(2).text().trim();
-        } else {
+        } 
+        else if (colspanSpring){
+          courseFall = columns.eq(0).text().trim();
+          hoursFall = columns.eq(1).text().trim();
+          courseSpring = columns.eq(2).text().trim();
+          hoursSpring = columns.eq(2).text().trim();
+        }
+        else {
           // Regular scenario
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(1).text().trim();
