@@ -4,7 +4,7 @@
 ### Key Features:
 * **User-Friendly Interface**: Intuitive design for easy navigation and a seamless user experience.
 * **Automated Degree Audit**: Generate comprehensive degree audit reports to track completed and outstanding requirements.
-* **Real-Time Data**: Connects directly to the university's database to ensure up-to-date information on courses, prerequisites, and degree requirements.
+* **Real-Time Data**: Webscrape automatically and directly to the university's database to ensure up-to-date information on courses, prerequisites, and degree requirements.
 
 ### Technologies Used
 * React - version 18.2.0
