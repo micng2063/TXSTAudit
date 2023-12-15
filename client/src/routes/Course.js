@@ -26,18 +26,18 @@ function Course() {
       <table style={{marginLeft:"250px"}}>
         <thead>
           <tr>
-            <th><b>Fall Semester Course</b></th>
+            <th style={{paddingLeft:'10px'}}><b>Fall Semester Course</b></th>
             <th style={{paddingRight:"50px"}}><b>Hours</b></th>
-            <th><b>Spring Semester Course</b></th>
+            <th style={{paddingLeft:'10px'}}><b>Spring Semester Course</b></th>
             <th style={{paddingRight:"50px"}}><b>Hours</b></th>
           </tr>
         </thead>
         <tbody>
           {courseData.map(({ fallSemester, springSemester }, index) => (
             <tr key={index}>
-              <td dangerouslySetInnerHTML={{ __html: removeParentheses(fallSemester.courseCode) }} />
+              <td dangerouslySetInnerHTML={{ __html: removeParentheses(fallSemester.courseCode) }} style={{paddingLeft:'10px'}}/>
               <td>{fallSemester.hours}</td>
-              <td dangerouslySetInnerHTML={{ __html: removeParentheses(springSemester.courseCode) }} />
+              <td dangerouslySetInnerHTML={{ __html: removeParentheses(springSemester.courseCode) }}  style={{paddingLeft:'10px'}}/>
               <td>{springSemester.hours}</td>
             </tr>
           ))}
