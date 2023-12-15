@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../css/Course.css";
 
@@ -27,9 +27,9 @@ function Course() {
         <thead>
           <tr>
             <th>Fall Semester Course</th>
-            <th>Spring Semester Hours</th>
+            <th>Hours</th>
             <th>Fall Semester Course</th>
-            <th>Spring Semester Hours</th>
+            <th>Hours</th>
           </tr>
         </thead>
         <tbody>
