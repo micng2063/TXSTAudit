@@ -23,13 +23,13 @@ function Course() {
   return (
     <div className="course-content">
       <h1>Course Requirements</h1>
-      <table>
+      <table style={{marginLeft:"250px"}}>
         <thead>
           <tr>
-            <th>Fall Semester Course</th>
-            <th>Hours</th>
-            <th>Spring Semester Course</th>
-            <th>Hours</th>
+            <th><b>Fall Semester Course</b></th>
+            <th style={{paddingRight:"50px"}}><b>Hours</b></th>
+            <th><b>Spring Semester Course</b></th>
+            <th style={{paddingRight:"50px"}}><b>Hours</b></th>
           </tr>
         </thead>
         <tbody>

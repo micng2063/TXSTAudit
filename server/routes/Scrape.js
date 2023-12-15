@@ -11,7 +11,8 @@ export const Scrape = async () => {
     const courseRow = $('tr.plangridyear'); 
     if (courseRow.length > 0) {
       // Process the table rows
-      courseRow.nextAll('tr.plangridyear, tr.even, tr.odd, tr.plangridsum').each((_, rowElement) => {
+      // courseRow.nextAll('tr.even, tr.odd, tr.plangridsum').each((_, rowElement) => {
+      courseRow.nextAll('tr.even, tr.odd').each((_, rowElement) => {
         const columns = $(rowElement).find('td');
 
         // Check for colspan attribute
@@ -33,7 +34,7 @@ export const Scrape = async () => {
         }
         else { // Regular scenario
           if (columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/)){
-            // courseFall = "Semester"; //Think of this later
+            // courseFall = "Semester";
             courseFall = columns.eq(0).text().trim();
           }
           else{
