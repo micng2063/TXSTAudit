@@ -48,14 +48,14 @@ function Course() {
         {courseData.map(({ fallSemester, springSemester }, index) => (
           <div className="grid-course" key={index} style={{ marginBottom: "10px" }}>
             <div className="item">
-              <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')} >
-              {fallSemester.courseCode.trim() && (
-                fallSemester.courseCode === "Total Hours" ? (
+            {fallSemester.courseCode !== "Empty" && (
+              <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
+                {fallSemester.courseCode === "Total Hours" ? (
                   <>
-                    <span style={{ color: fallCheckColor[index] }}>
+                    <span style={{marginLeft:"30%", color: fallCheckColor[index] }}>
                       <strong>{removeParentheses(fallSemester.courseCode)}</strong>
                     </span>
-                    <span style={{color: "#747474",paddingLeft: "10px" }}>{fallSemester.hours}</span>
+                    <span style={{ color: "#747474", paddingLeft: "10px" }}>{fallSemester.hours}</span>
                   </>
                 ) : (
                   <>
@@ -65,17 +65,18 @@ function Course() {
                     <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
                     <FaCheck style={{ float: "right", paddingRight: '10px', color: fallCheckColor[index] }} />
                   </>
-                )
-              )}
+                )}
               </button>
+            )}
+
             </div>
 
             <div className="item">
-              <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')} >
               {springSemester.courseCode.trim() && (
-                springSemester.courseCode === "Total Hours" ? (
+                <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')} >
+                {springSemester.courseCode === "Total Hours" ? (
                   <>
-                    <span style={{color: springCheckColor[index] }}>
+                    <span style={{marginLeft:"30%", color: springCheckColor[index] }}>
                       <strong>{removeParentheses(springSemester.courseCode)}</strong>
                     </span>
                     <span style={{color: "#747474",paddingLeft: "10px" }}>{springSemester.hours}</span>
@@ -88,9 +89,9 @@ function Course() {
                     <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
                     <FaCheck style={{ float: "right", paddingRight: '10px', color: springCheckColor[index] }} />
                   </>
-                )
-              )}
+                )}
               </button>
+              )}
             </div>
           </div>
         ))}

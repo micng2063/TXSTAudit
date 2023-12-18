@@ -21,31 +21,38 @@ export const Scrape = async () => {
         let courseFall, hoursFall, courseSpring, hoursSpring;
 
         if (colspanFall) { // Handle colspan scenario for Spring having more courseload
-          courseFall = columns.eq(0).text().trim();
-          hoursFall = columns.eq(0).text().trim();
+          courseFall = "Empty";
+          hoursFall = "Empty";
           courseSpring = columns.eq(1).text().trim();
           hoursSpring = columns.eq(2).text().trim();
         } 
         else if (colspanSpring){ // Handle colspan scenario for Spring having more courseload
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(1).text().trim();
-          courseSpring = columns.eq(2).text().trim();
-          hoursSpring = columns.eq(2).text().trim();
+          courseSpring = "Empty";
+          hoursSpring = "Empty";
         }
         else { // Regular scenario
-          if (columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/)){
+          if ( // For plangridsum
+            columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/) &&
+            parseInt(columns.eq(1).text()) > 10 &&
+            !columns.eq(1).text().match(/^(&nbsp;|\u00a0|&#160;)$/) ) {
             courseFall = "Total Hours";
-          }
-          else{
+          } else {
             courseFall = columns.eq(0).text().trim();
           }
+          
           hoursFall = columns.eq(1).text().trim();
-          if (columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/)){
+          
+          if ( // For plangridsum
+            columns.eq(2).text().match(/^(&nbsp;|\u00a0|&#160;)$/) &&
+            parseInt(columns.eq(3).text()) > 10 &&
+            !columns.eq(3).text().match(/^(&nbsp;|\u00a0|&#160;)$/) ){
             courseSpring = "Total Hours";
-          }
-          else{
+          } else {
             courseSpring = columns.eq(2).text().trim();
           }
+
           hoursSpring = columns.eq(3).text().trim();
         }
 
