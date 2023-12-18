@@ -34,14 +34,18 @@ export const Scrape = async () => {
         }
         else { // Regular scenario
           if (columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/)){
-            // courseFall = "Semester";
-            courseFall = columns.eq(0).text().trim();
+            courseFall = "Total Hours";
           }
           else{
             courseFall = columns.eq(0).text().trim();
           }
           hoursFall = columns.eq(1).text().trim();
-          courseSpring = columns.eq(2).text().trim();
+          if (columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/)){
+            courseSpring = "Total Hours";
+          }
+          else{
+            courseSpring = columns.eq(2).text().trim();
+          }
           hoursSpring = columns.eq(3).text().trim();
         }
 
