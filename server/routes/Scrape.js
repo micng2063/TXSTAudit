@@ -21,16 +21,16 @@ export const Scrape = async () => {
         let courseFall, hoursFall, courseSpring, hoursSpring;
 
         if (colspanFall) { // Handle colspan scenario for Spring having more courseload
-          courseFall = "Empty";
-          hoursFall = "Empty";
+          courseFall = columns.eq(0).text().trim();
+          hoursFall = columns.eq(0).text().trim();
           courseSpring = columns.eq(1).text().trim();
           hoursSpring = columns.eq(2).text().trim();
         } 
         else if (colspanSpring){ // Handle colspan scenario for Spring having more courseload
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(1).text().trim();
-          courseSpring = "Empty";
-          hoursSpring = "Empty";
+          courseSpring = columns.eq(2).text().trim();
+          hoursSpring = columns.eq(2).text().trim()
         }
         else { // Regular scenario
           if ( // For plangridsum
