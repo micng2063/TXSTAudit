@@ -38,7 +38,7 @@
 
     .grid-course button{
         background-color: #fff;
-        width: 400px;
+        width: 450px;
         height: 80px;
         border-radius: 20px;
         border-color: #747474;
@@ -46,6 +46,12 @@
         font-size: 17px;
         padding:5px;
         text-align: left;
+        line-height: 1.25em;
         padding-left: 20px;
+    }
+
+    .grid-button{
+        display: grid;
+        grid-template-columns: 80% 20%;
     }
 }
