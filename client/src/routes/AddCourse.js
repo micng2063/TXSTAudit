@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
 import "../css/Course.css";
@@ -8,6 +8,13 @@ function AddCourse() {
   const [courseName, setCourseName] = useState("");
   const [courseAdded, setCourseAdded] = useState(false);
 
+  useEffect(() => {
+    if (courseAdded) {
+      // Display the course information after the state has been updated
+      setShowForm(false);
+    }
+  }, [courseAdded]);
+
   const handleAddClick = () => {
     setShowForm(true);
   };
@@ -15,8 +22,7 @@ function AddCourse() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Course Name:", courseName);
-    setCourseName("");
-    setShowForm(false);
+    setCourseName(courseName);
     setCourseAdded(true);
   };
 
@@ -24,11 +30,11 @@ function AddCourse() {
     <div className="course-content">
       <div className="grid-course" style={{ marginTop: "10px", marginLeft: "21.5%" }}>
         {showForm ? (
-            <button className="grid-course-button">
-                <form onSubmit={handleFormSubmit} >
-                <div className="grid-add-course">
+          <button className="grid-course-button">
+            <form onSubmit={handleFormSubmit} >
+              <div className="grid-add-course">
                 <div className="item" style={{ paddingTop: "5px" }}>
-                <TextField
+                  <TextField
                     label="Course"
                     variant="outlined"
                     value={courseName}
@@ -37,20 +43,20 @@ function AddCourse() {
                     style={{ height: "50px", border: "1px solid #fff", width: "300px" }}
                     inputProps={{ style: { backgroundColor: "#fff", fontFamily: 'Segoe UI', fontSize: "17px" }, notchedOutline: { borderColor: "#747474" } }}
                     InputLabelProps={{ style: { fontFamily: "Segoe UI", color: "#747474" } }}
-                />
+                  />
                 </div>
                 <div className="item" style={{ paddingTop: "15px", paddingLeft: "15px" }}>
-                <button type="submit" variant="contained"
+                  <button type="submit" variant="contained"
                     style={{ width: "100px", height: "40px", backgroundColor: "#5aac44", border: "1px #5aac44", color: "#fff", borderRadius: "5px" }}>
-                    <FaPlus style={{ paddingRight:"10px", color: "#fff" }} />  <strong>Add</strong> 
-                </button>
+                    <FaPlus style={{ paddingRight: "10px", color: "#fff" }} />  <strong>Add</strong>
+                  </button>
                 </div>
-                </div>
-                </form>
+              </div>
+            </form>
           </button>
         ) : courseAdded ? (
-            <button className="grid-course-button">
-            <span><strong>{courseName}</strong></span>
+          <button className="grid-course-button">
+            <span style={{ color: "#5aac44" }}><strong>{courseName}</strong></span>
             <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
           </button>
         ) : (
