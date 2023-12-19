@@ -30,13 +30,13 @@ function Course() {
     if (semester === 'fall') {
       setFallCheckColor((prev) => {
         const newState = [...prev];
-        newState[index] = newState[index] === "#747474" ? "#50C878" : "#747474";
+        newState[index] = newState[index] === "#747474" ? "#5aac44" : "#747474";
         return newState;
       });
     } else if (semester === 'spring') {
       setSpringCheckColor((prev) => {
         const newState = [...prev];
-        newState[index] = newState[index] === "#747474" ? "#50C878" : "#747474";
+        newState[index] = newState[index] === "#747474" ? "#5aac44" : "#747474";
         return newState;
       });
     }
@@ -70,7 +70,7 @@ function Course() {
                         <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
                       </div>
                       <div className="item">
-                        <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "10px", color: fallCheckColor[index] }} />
+                        <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: fallCheckColor[index] }} />
                       </div>
                     </div>
                   </button>
@@ -102,7 +102,7 @@ function Course() {
                         <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
                       </div>
                       <div className="item">
-                        <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "10px", color: springCheckColor[index] }} />
+                        <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: springCheckColor[index] }} />
                       </div>
                     </div>
                   </button>

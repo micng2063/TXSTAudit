@@ -40,7 +40,7 @@
         background-color: #fff;
         width: 450px;
         height: 80px;
-        border-radius: 20px;
+        border-radius: 10px;
         border-color: #747474;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 17px;
@@ -54,4 +54,17 @@
         display: grid;
         grid-template-columns: 80% 20%;
     }
+
+    .grid-add-course {
+        display: grid;
+        grid-template-columns: 85% 15%;
+        gap: 10px;
+    }
+
+    
+    .MuiOutlinedInput-notchedOutline {
+        border-color: #D5D5D5 !important;
+        border-width: 1px !important;
+    }
+    
 }
