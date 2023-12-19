@@ -52,13 +52,15 @@ function Course() {
               {fallSemester.courseCode !== "Empty" && (
                 fallSemester.courseCode === "Total Hours" ? (
                   <>
+                    <AddCourse />
+                    {/*
                     <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
                       <span style={{ marginLeft: "30%", color: fallCheckColor[index] }}>
                         <strong>{removeParentheses(fallSemester.courseCode)}</strong>
                       </span>
                       <span style={{ color: "#747474", paddingLeft: "10px" }}>{fallSemester.hours}</span>
                     </button>
-                    <AddCourse />
+                    */}
                   </>
                 ) : (
                   <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
@@ -82,13 +84,15 @@ function Course() {
               {springSemester.courseCode !== "Empty" && (
                 springSemester.courseCode === "Total Hours" ? (
                   <>
+                  <AddCourse />
+                  {/*
                     <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
                       <span style={{ marginLeft: "30%", color: springCheckColor[index] }}>
                         <strong>{removeParentheses(springSemester.courseCode)}</strong>
                       </span>
                       <span style={{ color: "#747474", paddingLeft: "10px" }}>{springSemester.hours}</span>
                     </button>
-                    <AddCourse />
+                  */}
                   </>
                 ) : (
                   <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>

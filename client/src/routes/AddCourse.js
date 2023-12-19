@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 import "../css/Course.css";
 
 function AddCourse() {
@@ -21,9 +21,11 @@ function AddCourse() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Course Name:", courseName);
-    setCourseName(courseName);
-    setCourseAdded(true);
+    if (courseName.trim() !== "") {
+        console.log("Course Name:", courseName);
+        setCourseName(courseName);
+        setCourseAdded(true);
+      }
   };
 
   return (
@@ -58,6 +60,8 @@ function AddCourse() {
           <button className="grid-course-button">
             <span style={{ color: "#5aac44" }}><strong>{courseName}</strong></span>
             <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
+            <FaTimes style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#747474" }} />
+
           </button>
         ) : (
           <button className="grid-course-button" onClick={handleAddClick}>

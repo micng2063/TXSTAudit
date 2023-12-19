@@ -8,11 +8,11 @@ export const Scrape = async () => {
 
     const courseInfo = [];
 
-    const courseRow = $('tr.plangridyear');
+    const courseRow = $('tr.plangridyear'); 
     if (courseRow.length > 0) {
       // Process the table rows
       courseRow.nextAll('tr.even, tr.odd, tr.plangridsum').each((_, rowElement) => {
-        // courseRow.nextAll('tr.even, tr.odd').each((_, rowElement) => {
+      // courseRow.nextAll('tr.even, tr.odd').each((_, rowElement) => {
         const columns = $(rowElement).find('td');
 
         // Check for colspan attribute
@@ -21,33 +21,37 @@ export const Scrape = async () => {
         let courseFall, hoursFall, courseSpring, hoursSpring;
 
         if (colspanFall) { // Handle colspan scenario for Spring having more courseload
-          courseFall = columns.eq(0).text().trim();
-          hoursFall = columns.eq(0).text().trim();
+          //courseFall = columns.eq(0).text().trim();
+          //hoursFall = columns.eq(0).text().trim();
+          courseFall = "Empty";
+          hoursFall = "Empty;"
           courseSpring = columns.eq(1).text().trim();
           hoursSpring = columns.eq(2).text().trim();
-        }
-        else if (colspanSpring) { // Handle colspan scenario for Spring having more courseload
+        } 
+        else if (colspanSpring){ // Handle colspan scenario for Spring having more courseload
           courseFall = columns.eq(0).text().trim();
           hoursFall = columns.eq(1).text().trim();
-          courseSpring = columns.eq(2).text().trim();
-          hoursSpring = columns.eq(2).text().trim()
+          courseSpring = "Empty";
+          hoursSpring = "Empty";
+          //courseSpring = columns.eq(2).text().trim();
+          //hoursSpring = columns.eq(2).text().trim()
         }
         else { // Regular scenario
           if ( // For plangridsum
             columns.eq(0).text().match(/^(&nbsp;|\u00a0|&#160;)$/) &&
             parseInt(columns.eq(1).text()) > 10 &&
-            !columns.eq(1).text().match(/^(&nbsp;|\u00a0|&#160;)$/)) {
+            !columns.eq(1).text().match(/^(&nbsp;|\u00a0|&#160;)$/) ) {
             courseFall = "Total Hours";
           } else {
             courseFall = columns.eq(0).text().trim();
           }
-
+          
           hoursFall = columns.eq(1).text().trim();
-
+          
           if ( // For plangridsum
             columns.eq(2).text().match(/^(&nbsp;|\u00a0|&#160;)$/) &&
             parseInt(columns.eq(3).text()) > 10 &&
-            !columns.eq(3).text().match(/^(&nbsp;|\u00a0|&#160;)$/)) {
+            !columns.eq(3).text().match(/^(&nbsp;|\u00a0|&#160;)$/) ){
             courseSpring = "Total Hours";
           } else {
             courseSpring = columns.eq(2).text().trim();
@@ -64,7 +68,7 @@ export const Scrape = async () => {
           });
         }
       });
-
+      
     } else {
       throw new Error('Course row not found');
     }
