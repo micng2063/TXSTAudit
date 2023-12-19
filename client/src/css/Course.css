@@ -1,56 +1,56 @@
-.course-content{
+.course-content {
     body {
         margin: 0;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         background-repeat: no-repeat;
         background-size: cover;
-        margin:0;
-      }
+        margin: 0;
+    }
 
-    table{
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    table {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 17px;
-        left:30%;
+        left: 30%;
         text-align: left;
         border-collapse: collapse;
         width: 70%;
     }
 
     tr {
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        height:30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        height: 30px;
     }
 
     tr:nth-child(even) {
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #B5B5B5;
         border-color: #B5B5B5;
-        height:30px;
+        height: 30px;
     }
 
-    .grid-course{
+    .grid-course {
         display: grid;
         grid-template-columns: 50% 50%;
-        gap:10px;
+        gap: 10px;
     }
 
-    .grid-course button{
+    .grid-course button {
         background-color: #fff;
         width: 450px;
         height: 80px;
         border-radius: 20px;
         border-color: #747474;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 17px;
-        padding:5px;
+        padding: 5px;
         text-align: left;
         line-height: 1.25em;
         padding-left: 20px;
     }
 
-    .grid-button{
+    .grid-button {
         display: grid;
         grid-template-columns: 80% 20%;
     }
