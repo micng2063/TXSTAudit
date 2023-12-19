@@ -57,14 +57,14 @@
 
     .grid-add-course {
         display: grid;
-        grid-template-columns: 85% 15%;
-        gap: 10px;
+        grid-template-columns: 70% 30%;
+        padding-bottom: 10px;
     }
 
-    
+
     .MuiOutlinedInput-notchedOutline {
         border-color: #D5D5D5 !important;
         border-width: 1px !important;
     }
-    
+
 }

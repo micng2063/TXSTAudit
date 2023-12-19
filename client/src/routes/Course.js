@@ -76,12 +76,10 @@ function Course() {
                   </button>
                 )
               )}
-
-
             </div>
 
             <div className="item">
-            {springSemester.courseCode !== "Empty" && (
+              {springSemester.courseCode !== "Empty" && (
                 springSemester.courseCode === "Total Hours" ? (
                   <>
                     <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
