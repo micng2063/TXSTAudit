@@ -51,7 +51,7 @@ function AddCourse() {
           </button>
         ))}
       </div>
-      <div className="grid-course" style={{ marginLeft: "21.5%" }}>
+      <div className="grid-course" style={{ marginLeft: "14.5%" }}>
         {showForm ? (
           <button className="grid-course-button" style={{marginTop:"10px"}}>
             <form onSubmit={handleFormSubmit} >

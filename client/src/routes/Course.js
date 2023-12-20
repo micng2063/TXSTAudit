@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../css/Course.css";
 import { FaCheck } from "react-icons/fa";
-import AddCourse from './AddCourse';
+import AddCourse from '../action/AddCourse';
 
 function removeParentheses(courseCode) {
   const regex = /\([^)]*\)/g;
@@ -43,11 +43,11 @@ function Course() {
   };
 
   return (
-    <div className="course-content">
+    <div className="course-content" style={{width:"70vw", marginLeft:"400px"}}>
       <h1>Course Requirements</h1>
       <div>
         {courseData.map(({ fallSemester, springSemester }, index) => (
-          <div className="grid-course" key={index} style={{ marginBottom: "10px" }}>
+          <div className="grid-course" style={{ marginBottom: "10px" }}>
             <div className="item">
               {fallSemester.courseCode !== "Empty" && (
                 fallSemester.courseCode === "Total Hours" ? (
@@ -111,7 +111,7 @@ function Course() {
                 )
               )}
             </div>
-          </div>
+          </div>        
         ))}
       </div>
     </div>
