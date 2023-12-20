@@ -6,6 +6,7 @@ import "../css/Course.css";
 function AddCourse() {
   const [showForm, setShowForm] = useState(false);
   const [courseName, setCourseName] = useState("");
+  const [courseNames, setCourseNames] = useState([]);
   const [courseAdded, setCourseAdded] = useState(false);
 
   useEffect(() => {
@@ -22,20 +23,40 @@ function AddCourse() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (courseName.trim() !== "") {
-        console.log("Course Name:", courseName);
-        setCourseName(courseName);
-        setCourseAdded(true);
-      }
+      console.log("Course Name:", courseName);
+      setCourseNames((prevNames) => [...prevNames, courseName]);
+      setCourseName("");
+      setCourseAdded(true);
+    }
   };
-
+  const handleRemoveCourse = (index) => {
+    setCourseNames((prevNames) => {
+      const updatedNames = [...prevNames];
+      updatedNames.splice(index, 1);
+      return updatedNames;
+    });
+  };
+  
   return (
-    <div className="course-content">
-      <div className="grid-course" style={{ marginTop: "10px", marginLeft: "21.5%" }}>
+    <div className="course-content" style={{marginTop:"-10px"}}>
+      <div>
+        {courseAdded && courseNames.map((course, index) => (
+          <button key={index} className="grid-course-button" style={{marginTop:"10px"}}>
+            <span style={{ color: "#5aac44" }}><strong>{course}</strong></span>
+            <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
+            <FaTimes
+              onClick={() => handleRemoveCourse(index)}
+              style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#e9e9e9" }}
+            />
+          </button>
+        ))}
+      </div>
+      <div className="grid-course" style={{ marginLeft: "21.5%" }}>
         {showForm ? (
-          <button className="grid-course-button">
+          <button className="grid-course-button" style={{marginTop:"10px"}}>
             <form onSubmit={handleFormSubmit} >
               <div className="grid-add-course">
-                <div className="item" style={{ paddingTop: "5px" }}>
+                <div className="item" style={{ paddingTop: "5px"}}>
                   <TextField
                     label="Course"
                     variant="outlined"
@@ -43,11 +64,11 @@ function AddCourse() {
                     onChange={(e) => setCourseName(e.target.value)}
                     placeholder="Enter course name"
                     style={{ height: "50px", border: "1px solid #fff", width: "300px" }}
-                    inputProps={{ style: { backgroundColor: "#fff", fontFamily: 'Segoe UI', fontSize: "17px" }, notchedOutline: { borderColor: "#747474" } }}
+                    inputProps={{ style: { backgroundColor: "#fff", color: "#747474", fontFamily: 'Segoe UI', fontSize: "17px" }, notchedOutline: { borderColor: "#747474" } }}
                     InputLabelProps={{ style: { fontFamily: "Segoe UI", color: "#747474" } }}
                   />
                 </div>
-                <div className="item" style={{ paddingTop: "15px", paddingLeft: "15px" }}>
+                <div className="item" style={{ paddingTop: "10px", paddingLeft: "15px" }}>
                   <button type="submit" variant="contained"
                     style={{ width: "100px", height: "40px", backgroundColor: "#5aac44", border: "1px #5aac44", color: "#fff", borderRadius: "5px" }}>
                     <FaPlus style={{ paddingRight: "10px", color: "#fff" }} />  <strong>Add</strong>
@@ -56,15 +77,8 @@ function AddCourse() {
               </div>
             </form>
           </button>
-        ) : courseAdded ? (
-          <button className="grid-course-button">
-            <span style={{ color: "#5aac44" }}><strong>{courseName}</strong></span>
-            <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
-            <FaTimes style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#747474" }} />
-
-          </button>
         ) : (
-          <button className="grid-course-button" onClick={handleAddClick}>
+          <button className="grid-course-button" style={{marginTop: "10px"}} onClick={handleAddClick}>
             <FaPlus style={{ paddingRight: "20px", color: "#747474" }} />
             Add course
           </button>
