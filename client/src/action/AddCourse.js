@@ -51,7 +51,7 @@ function AddCourse() {
           </button>
         ))}
       </div>
-      <div className="grid-course" style={{ marginLeft: "14.5%" }}>
+      <div className="grid-course" style={{ marginLeft: "14%" }}>
         {showForm ? (
           <button className="grid-course-button" style={{marginTop:"10px"}}>
             <form onSubmit={handleFormSubmit} >
@@ -63,12 +63,12 @@ function AddCourse() {
                     value={courseName}
                     onChange={(e) => setCourseName(e.target.value)}
                     placeholder="Enter course name"
-                    style={{ height: "50px", border: "1px solid #fff", width: "300px" }}
+                    style={{ height: "50px", border: "1px solid #fff", width: "250px" }}
                     inputProps={{ style: { backgroundColor: "#fff", color: "#747474", fontFamily: 'Segoe UI', fontSize: "17px" }, notchedOutline: { borderColor: "#747474" } }}
                     InputLabelProps={{ style: { fontFamily: "Segoe UI", color: "#747474" } }}
                   />
                 </div>
-                <div className="item" style={{ paddingTop: "10px", paddingLeft: "15px" }}>
+                <div className="item" style={{ paddingTop: "10px", paddingLeft: "5px" }}>
                   <button type="submit" variant="contained"
                     style={{ width: "100px", height: "40px", backgroundColor: "#5aac44", border: "1px #5aac44", color: "#fff", borderRadius: "5px" }}>
                     <FaPlus style={{ paddingRight: "10px", color: "#fff" }} />  <strong>Add</strong>

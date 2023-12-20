@@ -44,78 +44,65 @@ function Course() {
   };
 
   return (
-    <div className="course-content" style={{width:"70vw", marginLeft:"400px"}}>
-      <h1>Course Requirements</h1>
-      <SelectDegree/>
-      <div>
-        {courseData.map(({ fallSemester, springSemester }, index) => (
-          <div className="grid-course" style={{ marginBottom: "10px" }}>
-            <div className="item">
-              {fallSemester.courseCode !== "Empty" && (
-                fallSemester.courseCode === "Total Hours" ? (
-                  <>
-                    <AddCourse />
-                    {/*
-                    <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
-                      <span style={{ marginLeft: "30%", color: fallCheckColor[index] }}>
-                        <strong>{removeParentheses(fallSemester.courseCode)}</strong>
-                      </span>
-                      <span style={{ color: "#747474", paddingLeft: "10px" }}>{fallSemester.hours}</span>
-                    </button>
-                    */}
-                  </>
-                ) : (
-                  <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
-                    <div className="grid-button">
-                      <div className="item">
-                        <span style={{ color: fallCheckColor[index] }}>
-                          <strong>{removeParentheses(fallSemester.courseCode)}</strong>
-                        </span>
-                        <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
-                      </div>
-                      <div className="item">
-                        <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: fallCheckColor[index] }} />
-                      </div>
-                    </div>
-                  </button>
-                )
-              )}
-            </div>
-
-            <div className="item">
-              {springSemester.courseCode !== "Empty" && (
-                springSemester.courseCode === "Total Hours" ? (
-                  <>
-                  <AddCourse />
-                  {/*
-                    <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
-                      <span style={{ marginLeft: "30%", color: springCheckColor[index] }}>
-                        <strong>{removeParentheses(springSemester.courseCode)}</strong>
-                      </span>
-                      <span style={{ color: "#747474", paddingLeft: "10px" }}>{springSemester.hours}</span>
-                    </button>
-                  */}
-                  </>
-                ) : (
-                  <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
-                    <div className="grid-button">
-                      <div className="item">
-                        <span style={{ color: springCheckColor[index] }}>
-                          <strong>{removeParentheses(springSemester.courseCode)}</strong>
-                        </span>
-                        <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
-                      </div>
-                      <div className="item">
-                        <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: springCheckColor[index] }} />
-                      </div>
-                    </div>
-                  </button>
-                )
-              )}
-            </div>
-          </div>        
-        ))}
+    <div className="grid-dashboard">
+      <div class="item">
+        <SelectDegree/>
       </div>
+      <div className="item">
+        <div class="course-content">
+          <h2>Course Requirements</h2>
+          <div>
+            {courseData.map(({ fallSemester, springSemester }, index) => (
+              <div className="grid-course" style={{ marginBottom: "10px" }}>
+                <div className="item">
+                  {fallSemester.courseCode !== "Empty" && (
+                    fallSemester.courseCode === "Total Hours" ? (
+                        <AddCourse />
+                    ) : (
+                      <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
+                        <div className="grid-button">
+                          <div className="item">
+                            <span style={{ color: fallCheckColor[index] }}>
+                              <strong>{removeParentheses(fallSemester.courseCode)}</strong>
+                            </span>
+                            <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
+                          </div>
+                          <div className="item">
+                            <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: fallCheckColor[index] }} />
+                          </div>
+                        </div>
+                      </button>
+                    )
+                  )}
+                </div>
+
+                <div class="item">
+                  {springSemester.courseCode !== "Empty" && (
+                    springSemester.courseCode === "Total Hours" ? (
+                        <AddCourse />
+                    ) : (
+                      <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
+                        <div className="grid-button">
+                          <div class="item">
+                            <span style={{ color: springCheckColor[index] }}>
+                              <strong>{removeParentheses(springSemester.courseCode)}</strong>
+                            </span>
+                            <span style={{ color: "#747474", paddingLeft: "10px" }}>Course description</span>
+                          </div>
+                          <div class="item">
+                            <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: springCheckColor[index] }} />
+                          </div>
+                        </div>
+                      </button>
+                    )
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
