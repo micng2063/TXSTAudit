@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../css/Course.css";
 import { FaCheck } from "react-icons/fa";
 import AddCourse from '../action/AddCourse';
+import SelectDegree from '../action/SelectDegree';
 
 function removeParentheses(courseCode) {
   const regex = /\([^)]*\)/g;
@@ -45,6 +46,7 @@ function Course() {
   return (
     <div className="course-content" style={{width:"70vw", marginLeft:"400px"}}>
       <h1>Course Requirements</h1>
+      <SelectDegree/>
       <div>
         {courseData.map(({ fallSemester, springSemester }, index) => (
           <div className="grid-course" style={{ marginBottom: "10px" }}>
