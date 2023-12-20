@@ -14,7 +14,7 @@ function SelectDegree() {
         'Mechanical Engineering': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/mechanical-bs/',
     };
 
-    const handleClick = (degree) => {
+    const handleClick = async (degree) => {
         console.log(`Selected Degree: ${degree}`);
         console.log(`Link: ${degreeLinks[degree]}`);
     };
