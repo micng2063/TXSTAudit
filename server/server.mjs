@@ -52,8 +52,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'mimiMich23@0036',
-  database: 'txstate',
-  port: 3306,
+  database: 'txstate'
 });
 
 db.connect((err) => {
@@ -63,6 +62,22 @@ db.connect((err) => {
   }
   console.log('MySQL database connected...');
 });
+
+app.get('/major', (req, res) => {
+  const query = 'SELECT * FROM major';
+
+  db.query(query, (error, results, fields) => {
+    if (error) {
+      res.status(500).send(error.message);
+      return;
+    }
+
+    console.log(results);
+
+    res.json(results);
+  });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
