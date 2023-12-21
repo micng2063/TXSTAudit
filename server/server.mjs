@@ -17,6 +17,25 @@ app.get('/scrape', async (req, res) => {
   }
 });
 
+
+app.get('/scrape/:degree', async (req, res) => {
+  try {
+    const { degree } = req.params;
+    const url = degreeLinks[degree];
+
+    if (!url) {
+      return res.status(404).send('Invalid degree');
+    }
+
+    const courseInfo = await Scrape(url);
+    res.json(courseInfo);
+  } catch (error) {
+    console.error('Error in /scrape/:degree', error);
+    res.status(500).send(error.message);
+  }
+});
+
+
 // start the Express server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

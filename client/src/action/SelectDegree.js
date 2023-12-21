@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Course.css';
 
-function SelectDegree() {
+function SelectDegree({ onDegreeSelected }) {
     const degreeLinks = {
         'Biochemistry': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/chemistry-biochemistry/biochemistry-bs/',
         'Chemistry': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/chemistry-biochemistry/chemistry-bs/',
@@ -17,7 +17,8 @@ function SelectDegree() {
     const handleClick = async (degree) => {
         console.log(`Selected Degree: ${degree}`);
         console.log(`Link: ${degreeLinks[degree]}`);
-    };
+        onDegreeSelected(degreeLinks[degree]);
+      };
 
     return (
         <div className="course-content">

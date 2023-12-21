@@ -14,18 +14,21 @@ function Course() {
   const [courseData, setCourseData] = useState([]);
   const [fallCheckColor, setFallCheckColor] = useState([]);
   const [springCheckColor, setSpringCheckColor] = useState([]);
+  const [selectedDegreeUrl, setSelectedDegreeUrl] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5050/scrape')
-      .then((response) => {
-        setCourseData(response.data);
-        setFallCheckColor(Array(response.data.length).fill("#747474"));
-        setSpringCheckColor(Array(response.data.length).fill("#747474"));
-      })
-      .catch((error) => {
-        console.error('Error fetching course data', error);
-      });
-  }, []);
+    if (selectedDegreeUrl) {
+      axios.get(`http://localhost:5050/scrape/${encodeURIComponent(selectedDegreeUrl)}`)
+        .then((response) => {
+          setCourseData(response.data);
+          setFallCheckColor(Array(response.data.length).fill("#747474"));
+          setSpringCheckColor(Array(response.data.length).fill("#747474"));
+        })
+        .catch((error) => {
+          console.error('Error fetching course data', error);
+        });
+    }
+  }, [selectedDegreeUrl]);
 
   const handleButtonClick = (index, semester) => {
     if (semester === 'fall') {
@@ -46,7 +49,7 @@ function Course() {
   return (
     <div className="grid-dashboard">
       <div class="item">
-        <SelectDegree/>
+        <SelectDegree onDegreeSelected={setSelectedDegreeUrl} />
       </div>
       <div className="item">
         <div class="course-content">
