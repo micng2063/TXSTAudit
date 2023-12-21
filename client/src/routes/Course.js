@@ -9,23 +9,46 @@ function removeParentheses(courseCode) {
   return courseCode.replace(regex, '');
 }
 
+const degreeCode = {
+  'Biochemistry': 'biochem',
+  'Chemistry': 'chemistry',
+  'Computer Science': 'compsci',
+  'Civil Engineering': 'civil',
+  'Electrical Engineering (CS Concentrated)': 'electricalcs',
+  'Electrical Engineering (Micro/Nano Concentrated)': 'electricalmn',
+  'Industrial Engineering': 'industrial',
+  'Manufacturing Engineering': 'manufact',
+  'Mechanical Engineering': 'mechanical',
+};
+
+const fetchDataForDegree = async (degree, setCourseData, setFallCheckColor, setSpringCheckColor) => {
+  try {
+    const response = await axios.get(`http://localhost:5050/scrape/${degreeCode[degree]}`);
+    console.log(`Scraped data for ${degree}:`, response.data);
+    setCourseData(response.data);
+    setFallCheckColor(Array(response.data.length).fill("#747474"));
+    setSpringCheckColor(Array(response.data.length).fill("#747474"));
+  } catch (error) {
+    console.error(`Error fetching data for degree:`, error);
+  }
+};
+
 function Course() {
-  
   const [courseData, setCourseData] = useState([]);
   const [fallCheckColor, setFallCheckColor] = useState([]);
   const [springCheckColor, setSpringCheckColor] = useState([]);
+  const [selectedDegree, setSelectedDegree] = useState('Computer Science'); // Set a default degree
 
   useEffect(() => {
-    axios.get('http://localhost:5050/scrape')
-      .then((response) => {
-        setCourseData(response.data);
-        setFallCheckColor(Array(response.data.length).fill("#747474"));
-        setSpringCheckColor(Array(response.data.length).fill("#747474"));
-      })
-      .catch((error) => {
-        console.error('Error fetching course data', error);
-      });
-  }, []);
+    // Fetch data for the default degree when the component mounts
+    fetchDataForDegree(selectedDegree, setCourseData, setFallCheckColor, setSpringCheckColor);
+  }, [selectedDegree]); // Include degreeCode as a dependency
+
+  const handleDegreeClick = async (degree) => {
+    console.log(`Selected Degree: ${degree}`);
+    console.log(`Link: ${degreeCode[degree]}`);
+    setSelectedDegree(degree); // Set the selected degree
+  };
 
   const handleButtonClick = (index, semester) => {
     if (semester === 'fall') {
@@ -43,37 +66,12 @@ function Course() {
     }
   };
 
-
-  const degreeCode = {
-    'Biochemistry': 'biochem',
-    'Chemistry': 'chemistry',
-    'Computer Science': 'compsci',
-    'Civil Engineering': 'civil',
-    'Electrical Engineering (CS Concentrated)': 'electricalcs',
-    'Electrical Engineering (Micro/Nano Concentrated)': 'electricalmn',
-    'Industrial Engineering': 'industrial',
-    'Manufacturing Engineering': 'manufact',
-    'Mechanical Engineering': 'mechanical',
-};
-
-const handleDegreeClick = async (degree) => {
-  console.log(`Selected Degree: ${degree}`);
-  console.log(`Link: ${degreeCode[degree]}`);
-  
-  try {
-    const response = await axios.get(`http://localhost:5050/scrape/${degreeCode[degree]}`)
-    console.log(`Scraped data for ${degree}:`, response.data);
-  } catch (error) {
-    console.error(`Error fetching data for degree:`, error);
-  }
-};
-
   return (
     <div className="grid-dashboard">
       <div class="item">
-            <h2>Select Your Degree</h2>
-          {Object.keys(degreeCode).map((degree) => (
-            <button className="button-degree" key={degree} onClick={() => handleDegreeClick(degree)}>
+        <h2>Select Your Degree</h2>
+        {Object.keys(degreeCode).map((degree) => (
+          <button className="button-degree" key={degree} onClick={() => handleDegreeClick(degree)}>
             {degree}
           </button>
         ))}
@@ -105,7 +103,6 @@ const handleDegreeClick = async (degree) => {
                     )
                   )}
                 </div>
-
                 <div class="item">
                   {springSemester.courseCode !== "Empty" && (
                     springSemester.courseCode === "Total Hours" ? (
@@ -132,7 +129,6 @@ const handleDegreeClick = async (degree) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
