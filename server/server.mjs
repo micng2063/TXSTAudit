@@ -49,10 +49,10 @@ app.get('/scrape', async (req, res) => {
 
 
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'micnguyen2063',
+  host: 'localhost',
+  user: 'root',
   password: 'mimiMich23@0036',
-  database: 'TxStateDegree',
+  database: 'txstate',
   port: 3306,
 });
 
