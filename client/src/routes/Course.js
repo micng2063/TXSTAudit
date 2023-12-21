@@ -45,9 +45,9 @@ function Course() {
   }, [selectedDegree]);
 
   const handleDegreeClick = async (degree) => {
-    console.log(`Selected Degree: ${degree}`);
-    console.log(`Link: ${degreeCode[degree]}`);
-    setSelectedDegree(degree); // Set the selected degree
+    //console.log(`Selected Degree: ${degree}`);
+    //console.log(`Link: ${degreeCode[degree]}`);
+    setSelectedDegree(degree);
   };
 
   const handleButtonClick = (index, semester) => {
@@ -59,6 +59,7 @@ function Course() {
       return newState;
     });
   };
+
 
   return (
     <div className="grid-dashboard">

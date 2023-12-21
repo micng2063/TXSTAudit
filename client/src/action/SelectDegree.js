@@ -5,8 +5,8 @@ function SelectDegree({ degreeCode, onDegreeSelected }) {
   const [selectedDegree, setSelectedDegree] = useState('Computer Science');
 
   const handleClick = (degree) => {
-    console.log(`Selected Degree: ${degree}`);
-    console.log(`Link: ${degreeCode[degree]}`);
+    //console.log(`Selected Degree: ${degree}`);
+    //console.log(`Link: ${degreeCode[degree]}`);
     setSelectedDegree(degree);
     onDegreeSelected(degree);
   };

@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
-import axios from "axios";
-import cheerio from "cheerio";
+import mysql from "mysql";
 import { Scrape } from "./routes/Scrape.js";
 
 const PORT = 5050;
@@ -21,7 +20,6 @@ const degreeLinks = {
   'industrial': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/industrial-engineering-bs/',
   'manufact': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/manufacturing-engineering-general-concentration-bs/',
   'mechanical': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/mechanical-bs/',
-
 }
 
 app.get('/scrape/:majorCode', async (req, res) => {
@@ -49,7 +47,23 @@ app.get('/scrape', async (req, res) => {
   }
 });
 
-// start the Express server
+
+const db = mysql.createConnection({
+  host: '127.0.0.1',
+  user: 'micnguyen2063',
+  password: 'mimiMich23@0036',
+  database: 'TxStateDegree',
+  port: 3306,
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL database:', err);
+    return;
+  }
+  console.log('MySQL database connected...');
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
