@@ -1,32 +1,39 @@
 import React from 'react';
+import axios from 'axios';
 import '../css/Course.css';
 
 function SelectDegree({ onDegreeSelected }) {
-    const degreeLinks = {
-        'Biochemistry': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/chemistry-biochemistry/biochemistry-bs/',
-        'Chemistry': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/chemistry-biochemistry/chemistry-bs/',
-        'Computer Science': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/computer/computer-science-bs/',
-        'Civil Engineering': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/civil-engineering-bs/',
-        'Electrical Engineering (CS Concentrated)': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/electrical-engineering-computer-specialization-bs/',
-        'Electrical Engineering (Micro/Nano Concentrated)': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/electrical-engineering-micro-nano-devices-systems-specialization-bs/',
-        'Industrial Engineering': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/industrial-engineering-bs/',
-        'Manufacturing Engineering': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/manufacturing-engineering-general-concentration-bs/',
-        'Mechanical Engineering': 'http://mycatalog.txstate.edu/undergraduate/science-engineering/ingram-school/mechanical-bs/',
+    const degreeCode = {
+        'Biochemistry': 'biochem',
+        'Chemistry': 'chemistry',
+        'Computer Science': 'compsci',
+        'Civil Engineering': 'civil',
+        'Electrical Engineering (CS Concentrated)': 'electricalcs',
+        'Electrical Engineering (Micro/Nano Concentrated)': 'electricalmn',
+        'Industrial Engineering': 'industrial',
+        'Manufacturing Engineering': 'manufact',
+        'Mechanical Engineering': 'mechanical',
     };
 
-    const handleClick = async (degree) => {
-        console.log(`Selected Degree: ${degree}`);
-        console.log(`Link: ${degreeLinks[degree]}`);
-        onDegreeSelected(degreeLinks[degree]);
-      };
-
+  const handleClick = async (degree) => {
+    console.log(`Selected Degree: ${degree}`);
+    console.log(`Link: ${degreeCode[degree]}`);
+    try {
+        // eslint-disable-next-line
+      const response = await axios.get(`http://localhost:5050/scrape/${degreeCode[degree]}`);
+      // Handle the response data as needed
+    } catch (error) {
+      console.error('Error fetching data for major:', error);
+    }
+  };
+  
     return (
         <div className="course-content">
             <h2>Select Your Degree</h2>
-            {Object.keys(degreeLinks).map((degree) => (
+            {Object.keys(degreeCode).map((degree) => (
                 <button className="button-degree" key={degree} onClick={() => handleClick(degree)}>
-                    {degree}
-                </button>
+                {degree}
+              </button>
             ))}
         </div>
     );

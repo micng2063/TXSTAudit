@@ -3,7 +3,6 @@ import axios from 'axios';
 import "../css/Course.css";
 import { FaCheck } from "react-icons/fa";
 import AddCourse from '../action/AddCourse';
-import SelectDegree from '../action/SelectDegree';
 
 function removeParentheses(courseCode) {
   const regex = /\([^)]*\)/g;
@@ -11,24 +10,22 @@ function removeParentheses(courseCode) {
 }
 
 function Course() {
+  
   const [courseData, setCourseData] = useState([]);
   const [fallCheckColor, setFallCheckColor] = useState([]);
   const [springCheckColor, setSpringCheckColor] = useState([]);
-  const [selectedDegreeUrl, setSelectedDegreeUrl] = useState(null);
 
   useEffect(() => {
-    if (selectedDegreeUrl) {
-      axios.get(`http://localhost:5050/scrape/${encodeURIComponent(selectedDegreeUrl)}`)
-        .then((response) => {
-          setCourseData(response.data);
-          setFallCheckColor(Array(response.data.length).fill("#747474"));
-          setSpringCheckColor(Array(response.data.length).fill("#747474"));
-        })
-        .catch((error) => {
-          console.error('Error fetching course data', error);
-        });
-    }
-  }, [selectedDegreeUrl]);
+    axios.get('http://localhost:5050/scrape')
+      .then((response) => {
+        setCourseData(response.data);
+        setFallCheckColor(Array(response.data.length).fill("#747474"));
+        setSpringCheckColor(Array(response.data.length).fill("#747474"));
+      })
+      .catch((error) => {
+        console.error('Error fetching course data', error);
+      });
+  }, []);
 
   const handleButtonClick = (index, semester) => {
     if (semester === 'fall') {
@@ -46,10 +43,40 @@ function Course() {
     }
   };
 
+
+  const degreeCode = {
+    'Biochemistry': 'biochem',
+    'Chemistry': 'chemistry',
+    'Computer Science': 'compsci',
+    'Civil Engineering': 'civil',
+    'Electrical Engineering (CS Concentrated)': 'electricalcs',
+    'Electrical Engineering (Micro/Nano Concentrated)': 'electricalmn',
+    'Industrial Engineering': 'industrial',
+    'Manufacturing Engineering': 'manufact',
+    'Mechanical Engineering': 'mechanical',
+};
+
+const handleDegreeClick = async (degree) => {
+  console.log(`Selected Degree: ${degree}`);
+  console.log(`Link: ${degreeCode[degree]}`);
+  
+  try {
+    const response = await axios.get(`http://localhost:5050/scrape/${degreeCode[degree]}`)
+    console.log(`Scraped data for ${degree}:`, response.data);
+  } catch (error) {
+    console.error(`Error fetching data for degree:`, error);
+  }
+};
+
   return (
     <div className="grid-dashboard">
       <div class="item">
-        <SelectDegree onDegreeSelected={setSelectedDegreeUrl} />
+            <h2>Select Your Degree</h2>
+          {Object.keys(degreeCode).map((degree) => (
+            <button className="button-degree" key={degree} onClick={() => handleDegreeClick(degree)}>
+            {degree}
+          </button>
+        ))}
       </div>
       <div className="item">
         <div class="course-content">
