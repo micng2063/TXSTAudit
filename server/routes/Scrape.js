@@ -1,13 +1,13 @@
 import cheerio from "cheerio";
 import axios from "axios";
 
-export const Scrape = async () => {
+export const Scrape = async (url) => {
   try {
-    const response = await axios.get('http://mycatalog.txstate.edu/undergraduate/science-engineering/computer/computer-science-bs/');
+    const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
     const courseInfo = [];
-
+    
     const courseRow = $('tr.plangridyear'); 
     if (courseRow.length > 0) {
       // Process the table rows
