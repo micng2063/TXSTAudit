@@ -62,8 +62,8 @@ function Course() {
 
   const handleAttributeButtonClick = async () => {
     try {
-      const response = await axios.get('http://localhost:5050/major');
-      console.log('Major data:', response.data);
+      const response = await axios.get('http://localhost:5050/catalog');
+      console.log('Catalog data:', response.data);
     } catch (error) {
       console.error('Error fetching major data:', error);
     }
@@ -72,9 +72,8 @@ function Course() {
   return (
     <div className="grid-dashboard">
       <div className="item">
-      
-      <button className="attribute-button" onClick={handleAttributeButtonClick}>
-            Fetch Attribute Data
+          <button  onClick={handleAttributeButtonClick}>
+            Fetch Catalog Data
           </button>
         <SelectDegree degreeCode={degreeCode} onDegreeSelected={handleDegreeClick} />
       </div>

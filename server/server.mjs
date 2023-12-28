@@ -47,7 +47,6 @@ app.get('/scrape', async (req, res) => {
   }
 });
 
-
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -63,8 +62,8 @@ db.connect((err) => {
   console.log('MySQL database connected...');
 });
 
-app.get('/major', (req, res) => {
-  const query = 'SELECT * FROM major';
+app.get('/catalog', (req, res) => {
+  const query = 'SELECT * FROM catalog';
 
   db.query(query, (error, results, fields) => {
     if (error) {
