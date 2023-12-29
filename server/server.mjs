@@ -77,7 +77,6 @@ app.get('/catalog/search', (req, res) => {
   const courseName = req.query.courseName;
   if (!courseName) {
     res.status(400).send('Course name is required for search.');
-    console.log("Course not found.");
     return;
   }
 

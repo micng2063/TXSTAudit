@@ -6,27 +6,37 @@ import "../css/Course.css";
 function AddCourse() {
   const [showForm, setShowForm] = useState(false);
   const [courseName, setCourseName] = useState("");
-  const [courseNames, setCourseNames] = useState([]);
-  const [courseAdded, setCourseAdded] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [courseDetails, setCourseDetails] = useState([]);
+  const [courseNotFound, setCourseNotFound] = useState({});
 
   useEffect(() => {
-    if (courseAdded) {
-      setShowForm(false);
-    }
-  }, [courseAdded]);
+    setShowForm(false);
+  }, [courseDetails]);
 
-  const handleAddClick = async () => {
+  const handleAddClick = () => {
     setShowForm(true);
+    setCourseNotFound({});
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (courseName.trim() !== "") {
-      console.log("Course Name:", courseName);
-      setCourseNames((prevNames) => [...prevNames, courseName]);
-      setCourseName("");
-      setCourseAdded(true);
+      try {
+        const response = await fetch(`http://localhost:5050/catalog/search?courseName=${courseName}`);
+        const data = await response.json();
+
+        if (data && data.length === 0) {
+          setCourseNotFound((prevNotFound) => ({ ...prevNotFound, [courseName]: true }));
+        } else {
+          if (!courseDetails.some(detail => detail.courseName === courseName)) {
+            setCourseDetails((prevDetails) => [...prevDetails, { courseName, details: data }]);
+          }
+          setCourseName("");
+          setShowForm(false);
+        }
+      } catch (error) {
+        console.error('Error searching for courses:', error);
+      }
     }
   };
 
@@ -34,37 +44,49 @@ function AddCourse() {
     try {
       const response = await fetch(`http://localhost:5050/catalog/search?courseName=${courseName}`);
       const data = await response.json();
-      setSearchResults(data);
+
+      if (data && data.length === 0) {
+        setCourseNotFound((prevNotFound) => ({ ...prevNotFound, [courseName]: true }));
+      } else {
+        if (!courseDetails.some(detail => detail.courseName === courseName)) {
+          setCourseDetails((prevDetails) => [...prevDetails, { courseName, details: data }]);
+        }
+        setShowForm(false);
+      }
     } catch (error) {
       console.error('Error searching for courses:', error);
     }
   };
 
   const handleRemoveCourse = (index) => {
-    setCourseNames((prevNames) => {
-      const updatedNames = [...prevNames];
-      updatedNames.splice(index, 1);
-      return updatedNames;
+    setCourseDetails((prevDetails) => {
+      const updatedDetails = [...prevDetails];
+      updatedDetails.splice(index, 1);
+      return updatedDetails;
     });
   };
 
   return (
-    <div className="course-content" style={{marginTop:"-10px"}}>
+    <div className="course-content" style={{ marginTop: "-10px" }}>
       <div>
-        {courseAdded && courseNames.map((course, index) => (
-          <button key={index} className="grid-course-button" style={{marginTop:"10px"}}>
-            <span style={{ color: "#5aac44" }}><strong>{course}</strong></span>
-            <span style={{ color: "#747474", paddingLeft: "10px" }}>{searchResults[index] ? searchResults[index].CourseName : 'Course description'}</span>
-            <FaTimes onClick={() => handleRemoveCourse(index)} style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#e9e9e9" }}/>
+        {courseDetails.map((detail, index) => (
+        index % 2 === 0 && (
+          <button key={index} className="grid-course-button" style={{ marginTop: "10px" }}>
+            <span style={{ color: "#5aac44" }}><strong>{detail.courseName}</strong></span>
+            <span style={{ color: "#747474", paddingLeft: "10px" }}>
+              {courseNotFound[detail.courseName] ? 'Course not found in catalog' : (detail.details.length > 0 ? detail.details[0].CourseName : 'Course description')}
+            </span>
+            <FaTimes onClick={() => handleRemoveCourse(index)} style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#e9e9e9" }} />
           </button>
-        ))}
+        )
+      ))}
       </div>
       <div className="grid-course" style={{ marginLeft: "14%" }}>
         {showForm ? (
-          <button className="grid-course-button" style={{marginTop:"10px"}}>
+          <button className="grid-course-button" style={{ marginTop: "10px" }}>
             <form onSubmit={handleFormSubmit}>
               <div className="grid-add-course">
-                <div className="item" style={{ paddingTop: "5px"}}>
+                <div className="item" style={{ paddingTop: "5px" }}>
                   <TextField
                     label="Course"
                     variant="outlined"
@@ -86,7 +108,7 @@ function AddCourse() {
             </form>
           </button>
         ) : (
-          <button className="grid-course-button" style={{marginTop: "10px"}} onClick={handleAddClick}>
+          <button className="grid-course-button" style={{ marginTop: "10px" }} onClick={handleAddClick}>
             <FaPlus style={{ paddingRight: "20px", color: "#747474" }} />
             Add course
           </button>
