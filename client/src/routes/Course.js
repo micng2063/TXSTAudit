@@ -49,16 +49,39 @@ function Course() {
     //console.log(`Link: ${degreeCode[degree]}`);
     setSelectedDegree(degree);
   };
-
+  
   const handleButtonClick = (index, semester) => {
     const setCheckColor = semester === 'fall' ? setFallCheckColor : setSpringCheckColor;
-
+  
     setCheckColor((prev) => {
       const newState = [...prev];
       newState[index] = newState[index] === "#747474" ? "#5aac44" : "#747474";
+  
+      let courseCode = removeParentheses(courseData[index][`${semester}Semester`].courseCode);
+  
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`http://localhost:5050/catalog/search?courseName=${courseCode}`);
+          const data = await response.json();
+  
+          if (data && data.length > 0) {
+            const courseName = data[0].CourseName; 
+            console.log('CourseName :', courseName);
+          } else {
+            console.log('CourseName not found in the API response.');
+          }
+        } catch (error) {
+          console.error('Error searching for courses:', error);
+        }
+      };
+  
+      fetchData(); // Call the async function
+  
       return newState;
     });
   };
+  
+
 
   return (
     <div className="grid-dashboard">
