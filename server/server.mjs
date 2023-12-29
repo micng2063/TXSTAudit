@@ -64,15 +64,32 @@ db.connect((err) => {
 
 app.get('/catalog', (req, res) => {
   const query = 'SELECT * FROM catalog';
-
   db.query(query, (error, results, fields) => {
     if (error) {
       res.status(500).send(error.message);
       return;
     }
+    res.json(results);
+  });
+});
 
-    console.log(results);
+app.get('/catalog/search', (req, res) => {
+  const courseName = req.query.courseName;
+  console.log("Backend search:", courseName);
+  if (!courseName) {
+    res.status(400).send('Course name is required for search.');
+    console.log("Course not found.");
+    return;
+  }
 
+  const query = `SELECT * FROM catalog WHERE CourseID LIKE ?`;
+  db.query(query, [`%${courseName}%`], (error, results, fields) => {
+    if (error) {
+      res.status(500).send(error.message);
+      console.log(error.message);
+      return;
+    }
+    console.log("${courseName} found.");
     res.json(results);
   });
 });

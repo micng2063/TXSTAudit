@@ -4,6 +4,8 @@ import "../css/Course.css";
 import { FaCheck } from "react-icons/fa";
 import AddCourse from '../action/AddCourse';
 import SelectDegree from '../action/SelectDegree';
+import FindCourse from '../action/FindCourse';
+
 
 function removeParentheses(courseCode) {
   const regex = /\([^)]*\)/g;
@@ -60,21 +62,10 @@ function Course() {
     });
   };
 
-  const handleAttributeButtonClick = async () => {
-    try {
-      const response = await axios.get('http://localhost:5050/catalog');
-      console.log('Catalog data:', response.data);
-    } catch (error) {
-      console.error('Error fetching major data:', error);
-    }
-  };
-
   return (
     <div className="grid-dashboard">
       <div className="item">
-          <button  onClick={handleAttributeButtonClick}>
-            Fetch Catalog Data
-          </button>
+        <FindCourse/>
         <SelectDegree degreeCode={degreeCode} onDegreeSelected={handleDegreeClick} />
       </div>
       <div className="item">
