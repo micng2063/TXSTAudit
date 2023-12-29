@@ -30,5 +30,4 @@ function FindCourse() {
   );
 }
 
-// Export the component
 export default FindCourse;
