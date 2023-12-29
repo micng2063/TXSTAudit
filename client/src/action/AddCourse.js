@@ -3,6 +3,10 @@ import { TextField } from "@mui/material";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import "../css/Course.css";
 
+/*  Issue with logic: courseDetails contains duplicated entries of added courses (? unsure why this happens)
+    Resolved: only display (index % 2 === 0) even index when added (line 80) and removed (index + 1) as well when removed (line 69)
+*/
+
 function AddCourse() {
   const [showForm, setShowForm] = useState(false);
   const [courseName, setCourseName] = useState("");
@@ -68,21 +72,21 @@ function AddCourse() {
       return updatedDetails;
     });
   };
-  
+
   return (
     <div className="course-content" style={{ marginTop: "-10px" }}>
       <div>
         {courseDetails.map((detail, index) => (
-        index % 2 === 0 && (
-          <button key={index} className="grid-course-button" style={{ marginTop: "10px" }}>
-            <span style={{ color: "#5aac44" }}><strong>{detail.courseName}</strong></span>
-            <span style={{ color: "#747474", paddingLeft: "10px" }}>
-              {courseNotFound[detail.courseName] ? 'Course not found in catalog' : (detail.details.length > 0 ? detail.details[0].CourseName : 'Course description')}
-            </span>
-            <FaTimes onClick={() => handleRemoveCourse(index)} style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#e9e9e9" }} />
-          </button>
-        )
-      ))}
+          index % 2 === 0 && (
+            <button key={index} className="grid-course-button" style={{ marginTop: "10px" }}>
+              <span style={{ color: "#5aac44" }}><strong>{detail.courseName}</strong></span>
+              <span style={{ color: "#747474", paddingLeft: "10px" }}>
+                {courseNotFound[detail.courseName] ? 'Course not found in catalog' : (detail.details.length > 0 ? detail.details[0].CourseName : 'Course description')}
+              </span>
+              <FaTimes onClick={() => handleRemoveCourse(index)} style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: "#e9e9e9" }} />
+            </button>
+          )
+        ))}
       </div>
       <div className="grid-course" style={{ marginLeft: "14%" }}>
         {showForm ? (
