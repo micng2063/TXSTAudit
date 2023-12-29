@@ -11,7 +11,6 @@ function AddCourse() {
 
   useEffect(() => {
     if (courseAdded) {
-      // Display the course information after the state has been updated
       setShowForm(false);
     }
   }, [courseAdded]);

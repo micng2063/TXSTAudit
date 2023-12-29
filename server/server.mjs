@@ -75,7 +75,6 @@ app.get('/catalog', (req, res) => {
 
 app.get('/catalog/search', (req, res) => {
   const courseName = req.query.courseName;
-  console.log("Backend search:", courseName);
   if (!courseName) {
     res.status(400).send('Course name is required for search.');
     console.log("Course not found.");
@@ -89,7 +88,6 @@ app.get('/catalog/search', (req, res) => {
       console.log(error.message);
       return;
     }
-    console.log("${courseName} found.");
     res.json(results);
   });
 });
