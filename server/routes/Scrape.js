@@ -9,7 +9,6 @@ function processCourseCode(courseCode) {
   return withSpace;
 }
 
-
 const findName = async (courseName) => {
   try {
     const response = await fetch(`http://localhost:5050/catalog/search?courseName=${processCourseCode(courseName)}`);
