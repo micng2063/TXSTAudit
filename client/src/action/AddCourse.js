@@ -62,10 +62,13 @@ function AddCourse() {
     setCourseDetails((prevDetails) => {
       const updatedDetails = [...prevDetails];
       updatedDetails.splice(index, 1);
+      if (index < updatedDetails.length) {
+        updatedDetails.splice(index, 1);
+      }
       return updatedDetails;
     });
   };
-
+  
   return (
     <div className="course-content" style={{ marginTop: "-10px" }}>
       <div>
