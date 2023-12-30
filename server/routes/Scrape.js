@@ -3,9 +3,7 @@ import axios from "axios";
 
 function processCourseCode(courseCode) {
   const withoutParentheses = courseCode.replace(/\([^)]*\)/g, '');
-  
   const withSpace = withoutParentheses.replace(/([a-zA-Z])([0-9])/g, '$1 $2');
-
   return withSpace;
 }
 
