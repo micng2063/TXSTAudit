@@ -24,6 +24,8 @@ const fetchDataForDegree = async (degree, setCourseData, setFallCheckColor, setS
     setCourseData(response.data);
     setFallCheckColor(Array(response.data.length).fill("#747474"));
     setSpringCheckColor(Array(response.data.length).fill("#747474"));
+
+    //console.log('Course Data:', response.data);
   } catch (error) {
     console.error(`Error fetching data for degree:`, error);
   }
@@ -39,22 +41,48 @@ function Course() {
     fetchDataForDegree(selectedDegree, setCourseData, setFallCheckColor, setSpringCheckColor);
   }, [selectedDegree]);
 
+  const splitGroup = (courseData) => {
+    const groupedData = [];
+    let currentGroup = [];
+
+    courseData.forEach((semesterData) => {
+      currentGroup.push(semesterData);
+
+      if (semesterData.fallSemester.courseCode === 'Total Hours' ||
+      semesterData.springSemester.courseCode === 'Total Hours') {
+        groupedData.push([...currentGroup]);
+        currentGroup = [];
+      }
+    });
+
+    return groupedData;
+  };
+
+  const groupedData = splitGroup(courseData);
+
   const handleDegreeClick = async (degree) => {
-    //console.log(`Selected Degree: ${degree}`);
-    //console.log(`Link: ${degreeCode[degree]}`);
     setSelectedDegree(degree);
   };
-  
+
   const handleButtonClick = (index, semester) => {
     const setCheckColor = semester === 'fall' ? setFallCheckColor : setSpringCheckColor;
 
     setCheckColor((prev) => {
       const newState = [...prev];
       newState[index] = newState[index] === "#747474" ? "#5aac44" : "#747474";
+      //console.log(index);
       return newState;
     });
-    
   };
+
+  const getYearLabel = (groupIndex) => {
+    const yearLabels = ['Freshman', 'Sophomore', 'Junior', 'Senior'];
+    const maxIndex = yearLabels.length - 1;
+    const mappedIndex = groupIndex <= maxIndex ? groupIndex : maxIndex;
+  
+    return yearLabels[mappedIndex];
+  };
+
   return (
     <div className="grid-dashboard">
       <div className="item">
@@ -64,50 +92,55 @@ function Course() {
         <div className="course-content">
           <h2>Course Requirements</h2>
           <div>
-            {courseData.map(({ fallSemester, springSemester }, index) => (
-              <div className="grid-course" style={{ marginBottom: "10px" }} key={index}>
-                <div className="item">
-                  {fallSemester.courseCode !== "Empty" && (
-                    fallSemester.courseCode === "Total Hours" ? (
-                      <AddCourse />
-                    ) : (
-                      <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
-                        <div className="grid-button">
-                          <div className="item">
-                            <span style={{ color: fallCheckColor[index] }}>
-                              <strong>{fallSemester.courseCode}</strong>
-                            </span>
-                            <span style={{ color: "#747474", paddingLeft: "10px" }}>{fallSemester.courseName}</span>
-                          </div>
-                          <div className="item">
-                            <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: fallCheckColor[index] }} />
-                          </div>
-                        </div>
-                      </button>
-                    )
-                  )}
-                </div>
-                <div className="item">
-                  {springSemester.courseCode !== "Empty" && (
-                    springSemester.courseCode === "Total Hours" ? (
-                      <AddCourse />
-                    ) : (
-                      <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
-                        <div className="grid-button">
-                          <div className="item">
-                            <span style={{ color: springCheckColor[index] }}>
-                              <strong>{springSemester.courseCode}</strong>
-                            </span>
-                            <span style={{ color: "#747474", paddingLeft: "10px" }}>{springSemester.courseName}</span>
-                          </div>
-                          <div className="item">
-                            <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: springCheckColor[index] }} />
-                          </div>
-                        </div>
-                      </button>
-                    )
-                  )}
-                </div>
+            {groupedData.map((group, groupIndex) => (
+              <div key={groupIndex} style={{paddingBottom:"30px"}}>
+                <span><strong>{getYearLabel(groupIndex)}</strong></span>
+                {group.map(({ fallSemester, springSemester }, index) => (
+                  <div className="grid-course" style={{ marginBottom: "10px" }} key={index}>
+                    <div className="item">
+                      {fallSemester.courseCode !== "Empty" && (
+                        fallSemester.courseCode === "Total Hours" ? (
+                            <AddCourse />
+                        ) : (
+                          <button className="grid-course-button" onClick={() => handleButtonClick(index, 'fall')}>
+                            <div className="grid-button">
+                              <div className="item">
+                                <span style={{ color: fallCheckColor[index] }}>
+                                  <strong>{fallSemester.courseCode}</strong>
+                                </span>
+                                <span style={{ color: "#747474", paddingLeft: "10px" }}>{fallSemester.courseName}</span>
+                              </div>
+                              <div className="item">
+                                <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: fallCheckColor[index] }} />
+                              </div>
+                            </div>
+                          </button>
+                        )
+                      )}
+                    </div>
+                    <div className="item">
+                      {springSemester.courseCode !== "Empty" && (
+                        springSemester.courseCode === "Total Hours" ? (
+                            <AddCourse />
+                        ) : (
+                          <button className="grid-course-button" onClick={() => handleButtonClick(index, 'spring')}>
+                            <div className="grid-button">
+                              <div className="item">
+                                <span style={{ color: springCheckColor[index] }}>
+                                  <strong>{springSemester.courseCode}</strong>
+                                </span>
+                                <span style={{ color: "#747474", paddingLeft: "10px" }}>{springSemester.courseName}</span>
+                              </div>
+                              <div className="item">
+                                <FaCheck style={{ float: "right", paddingRight: "20px", marginTop: "5px", color: springCheckColor[index] }} />
+                              </div>
+                            </div>
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
