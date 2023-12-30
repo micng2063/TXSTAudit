@@ -1,40 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FaCheck } from 'react-icons/fa';
 import AddCourse from '../action/AddCourse';
 import SelectDegree from '../action/SelectDegree';
+import { fetchDegree, degreeCode } from '../action/FetchDegree';
 import '../css/Course.css';
-
-const degreeCode = {
-  'Biochemistry': 'biochem',
-  'Chemistry': 'chemistry',
-  'Computer Science': 'compsci',
-  'Civil Engineering': 'civil',
-  'Electrical Engineering (CS Concentrated)': 'electricalcs',
-  'Electrical Engineering (Micro/Nano Concentrated)': 'electricalmn',
-  'Industrial Engineering': 'industrial',
-  'Manufacturing Engineering': 'manufact',
-  'Mechanical Engineering': 'mechanical',
-};
-
-const fetchDataForDegree = async (degree, setCourseData, setFallCheckColor, setSpringCheckColor) => {
-  try {
-    const response = await axios.get(`http://localhost:5050/scrape/${degreeCode[degree]}`);
-    console.log(`Scraped data for ${degree}:`, response.data);
-    setCourseData(response.data);
-    setFallCheckColor(Array(response.data.length).fill('#747474'));
-    setSpringCheckColor(Array(response.data.length).fill('#747474'));
-  } catch (error) {
-    console.error(`Error fetching data for degree:`, error);
-  }
-};
 
 const splitGroup = (courseData) => {
   const groupedData = [];
   let currentGroup = [];
 
   courseData.forEach((semesterData, index) => {
-    currentGroup.push({ ...semesterData, id: index }); // Add id property
+    currentGroup.push({ ...semesterData, id: index }); 
 
     if (
       semesterData.fallSemester.courseCode === 'Total Hours' ||
@@ -47,15 +23,26 @@ const splitGroup = (courseData) => {
 
   return groupedData;
 };
-
 const Course = () => {
   const [courseData, setCourseData] = useState([]);
   const [fallCheckColor, setFallCheckColor] = useState([]);
   const [springCheckColor, setSpringCheckColor] = useState([]);
   const [selectedDegree, setSelectedDegree] = useState('Computer Science');
 
+
   useEffect(() => {
-    fetchDataForDegree(selectedDegree, setCourseData, setFallCheckColor, setSpringCheckColor);
+    const fetchData = async () => {
+      try {
+        const data = await fetchDegree(selectedDegree);
+        setCourseData(data);
+        setFallCheckColor(Array(data.length).fill('#747474'));
+        setSpringCheckColor(Array(data.length).fill('#747474'));
+      } catch (error) {
+        // Handle error if needed
+      }
+    };
+
+    fetchData();
   }, [selectedDegree]);
 
   const groupedData = splitGroup(courseData);
@@ -94,7 +81,7 @@ const Course = () => {
           <div>
             {groupedData.map((group, groupIndex) => (
               <div key={groupIndex} style={{ paddingBottom: '30px' }}>
-                <h3 style={{color:"#747474"}}>
+                <h3 style={{ color: "#747474" }}>
                   {getYearLabel(groupIndex)}
                 </h3>
                 {group.map(({ fallSemester, springSemester, id }, index) => (
