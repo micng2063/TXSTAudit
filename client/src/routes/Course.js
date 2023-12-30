@@ -83,91 +83,91 @@ const Course = () => {
       <div className="item">
         <div className="course-content">
           <h2>Course Requirements</h2>
-          <div class="grid-course">
+          <div class="grid-course" style={{padding:"20px"}}>
 
-            <div class="item">
-            {fallGroupedData.map((group, groupIndex) => (
-  <div key={groupIndex} style={{ paddingBottom: '30px' }}>
-    <h3 style={{ color: '#747474' }}>{getYearLabel(groupIndex)} Fall</h3>
-    {group.map(({ semester, courseCode, courseName, id }, index) => (
-      <div className="grid-course" style={{ marginBottom: '10px' }} key={index}>
-        <div className="item">
-          {courseCode !== 'Empty' && courseCode !== 'Total Hours' ? (
-            <button className="grid-course-button" onClick={() => handleButtonClick(id, semester)}>
-              <div className="grid-button">
-                <div className="item">
-                  <span style={{ color: fallCheckColor[id] }}>
-                    <strong>{courseCode}</strong>
-                  </span>
-                  <span style={{ color: '#747474', paddingLeft: '10px' }}>{courseName}</span>
-                </div>
-                <div className="item">
-                  <FaCheck
-                    style={{
-                      float: 'right',
-                      paddingRight: '20px',
-                      marginTop: '5px',
-                      color: fallCheckColor[id],
-                    }}
-                  />
-                </div>
-              </div>
-            </button>
-          ) : null}
+            <div class="item" style={{paddingRight:"20px"}}>
+              {fallGroupedData.map((group, groupIndex) => (
+                <div className="grid-course-scroll" key={groupIndex} style={{ paddingBottom: '30px'}}>
+                  <h3 style={{ color: '#747474' }}>{getYearLabel(groupIndex)} Fall</h3>
+                  {group.map(({ semester, courseCode, courseName, id }, index) => (
+                    <div className="grid-course" style={{ marginBottom: '10px' }} key={index}>
+                      <div className="item">
+                        {courseCode !== 'Empty' && courseCode !== 'Total Hours' ? (
+                          <button className="grid-course-button" onClick={() => handleButtonClick(id, semester)}>
+                            <div className="grid-button">
+                              <div className="item">
+                                <span style={{ color: fallCheckColor[id] }}>
+                                  <strong>{courseCode}</strong>
+                                </span>
+                                <span style={{ color: '#747474', paddingLeft: '10px' }}>{courseName}</span>
+                              </div>
+                              <div className="item">
+                                <FaCheck
+                                  style={{
+                                    float: 'right',
+                                    paddingRight: '20px',
+                                    marginTop: '5px',
+                                    color: fallCheckColor[id],
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </button>
+                        ) : null}
 
-          {/* Render AddCourse for the last index in the group */}
-          {index === group.length - 1 && (
-            <div className="grid-course-button">
-              <AddCourse />
-            </div>
-          )}
-        </div>
-      </div>
-    ))}
-  </div>
-))}
+                        {/* Render AddCourse for the last index in the group */}
+                        {index === group.length - 1 && (
+                          <div className="grid-course-button">
+                            <AddCourse />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
 
             </div><div class="item">
-            {springGroupedData.map((group, groupIndex) => (
-  <div key={groupIndex} style={{ paddingBottom: '30px' }}>
-    <h3 style={{ color: '#747474' }}>{getYearLabel(groupIndex)} spring</h3>
-    {group.map(({ semester, courseCode, courseName, id }, index) => (
-      <div className="grid-course" style={{ marginBottom: '10px' }} key={index}>
-        <div className="item">
-          {courseCode !== 'Empty' && courseCode !== 'Total Hours' ? (
-            <button className="grid-course-button" onClick={() => handleButtonClick(id, semester)}>
-              <div className="grid-button">
-                <div className="item">
-                  <span style={{ color: springCheckColor[id] }}>
-                    <strong>{courseCode}</strong>
-                  </span>
-                  <span style={{ color: '#747474', paddingLeft: '10px' }}>{courseName}</span>
-                </div>
-                <div className="item">
-                  <FaCheck
-                    style={{
-                      float: 'right',
-                      paddingRight: '20px',
-                      marginTop: '5px',
-                      color: springCheckColor[id],
-                    }}
-                  />
-                </div>
-              </div>
-            </button>
-          ) : null}
+              {springGroupedData.map((group, groupIndex) => (
+                <div  className="grid-course-scroll" key={groupIndex} style={{ paddingBottom: '30px' }}>
+                  <h3 style={{ color: '#747474' }}>{getYearLabel(groupIndex)} Spring</h3>
+                  {group.map(({ semester, courseCode, courseName, id }, index) => (
+                    <div className="grid-course" style={{ marginBottom: '10px' }} key={index}>
+                      <div className="item">
+                        {courseCode !== 'Empty' && courseCode !== 'Total Hours' ? (
+                          <button className="grid-course-button" onClick={() => handleButtonClick(id, semester)}>
+                            <div className="grid-button">
+                              <div className="item">
+                                <span style={{ color: springCheckColor[id] }}>
+                                  <strong>{courseCode}</strong>
+                                </span>
+                                <span style={{ color: '#747474', paddingLeft: '10px' }}>{courseName}</span>
+                              </div>
+                              <div className="item">
+                                <FaCheck
+                                  style={{
+                                    float: 'right',
+                                    paddingRight: '20px',
+                                    marginTop: '5px',
+                                    color: springCheckColor[id],
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </button>
+                        ) : null}
 
-          {/* Render AddCourse for the last index in the group */}
-          {index === group.length - 1 && (
-            <div className="grid-course-button">
-              <AddCourse />
-            </div>
-          )}
-        </div>
-      </div>
-    ))}
-  </div>
-))}
+                        {/* Render AddCourse for the last index in the group */}
+                        {index === group.length - 1 && (
+                          <div className="grid-course-button">
+                            <AddCourse />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>
