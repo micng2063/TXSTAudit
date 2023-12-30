@@ -82,13 +82,13 @@ const Course = () => {
       </div>
       <div className="item">
         <div className="course-content">
-          <h2>Course Requirements</h2>
+          <h2 style={{fontSize:"20px"}}>Course Requirements</h2>
           <div class="grid-course" style={{padding:"20px"}}>
 
             <div class="item" style={{paddingRight:"20px"}}>
               {fallGroupedData.map((group, groupIndex) => (
                 <div className="grid-course-scroll" key={groupIndex} style={{ paddingBottom: '30px'}}>
-                  <h3 style={{ color: '#747474' }}>{getYearLabel(groupIndex)} Fall</h3>
+                  <h3 style={{ color: '#747474', fontSize:"15px", marginLeft:"-100px"}}>{getYearLabel(groupIndex)} Fall</h3>
                   {group.map(({ semester, courseCode, courseName, id }, index) => (
                     <div className="grid-course" style={{ marginBottom: '10px' }} key={index}>
                       <div className="item">
@@ -115,7 +115,6 @@ const Course = () => {
                           </button>
                         ) : null}
 
-                        {/* Render AddCourse for the last index in the group */}
                         {index === group.length - 1 && (
                           <div className="grid-course-button">
                             <AddCourse />
@@ -130,7 +129,7 @@ const Course = () => {
             </div><div class="item">
               {springGroupedData.map((group, groupIndex) => (
                 <div  className="grid-course-scroll" key={groupIndex} style={{ paddingBottom: '30px' }}>
-                  <h3 style={{ color: '#747474' }}>{getYearLabel(groupIndex)} Spring</h3>
+                  <h3 style={{ color: '#747474', fontSize:"15px", marginLeft:"-100px" }}>{getYearLabel(groupIndex)} Spring</h3>
                   {group.map(({ semester, courseCode, courseName, id }, index) => (
                     <div className="grid-course" style={{ marginBottom: '10px' }} key={index}>
                       <div className="item">

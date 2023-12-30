@@ -13,7 +13,7 @@ function SelectDegree({ degreeCode, onDegreeSelected }) {
 
   return (
     <div className="course-content">
-      <h2>Select Your Degree</h2>
+      <h2 style={{fontSize:"20px"}}>Select Your Degree</h2>
       {Object.keys(degreeCode).map((degree) => (
         <button
           className={`button-degree ${selectedDegree === degree ? 'selected' : ''}`}
