@@ -74,7 +74,7 @@ function AddCourse() {
   };
 
   return (
-    <div className="course-content" style={{ marginTop: "-10px" }}>
+    <div className="course-content">
       <div>
         {courseDetails.map((detail, index) => (
           index % 2 === 0 && (
@@ -87,7 +87,7 @@ function AddCourse() {
           )
         ))}
       </div>
-      <div className="grid-course" style={{ marginLeft: "14%" }}>
+      <div className="grid-course" style={{}}>
         {showForm ? (
           <button className="grid-course-button" style={{ marginTop: "10px", height: courseNotFound ? "110px" : "80px" }}>
             <form onSubmit={handleFormSubmit}>
