@@ -5,14 +5,13 @@ import SelectDegree from '../action/SelectDegree';
 import { fetchDegree, degreeCode } from '../action/FetchDegree';
 import '../css/Course.css';
 
-const splitGroup = (courseData) => {
+const splitSemester = (courseData) => {
   const groupedData = [];
   let currentGroup = [];
 
   courseData.forEach((semesterData, index) => {
     currentGroup.push({ ...semesterData, id: index });
-    if ( semesterData.fallSemester.courseCode === 'Total Hours' || semesterData.springSemester.courseCode === 'Total Hours'
-    ) {
+    if ( semesterData.fallSemester.courseCode === 'Total Hours' || semesterData.springSemester.courseCode === 'Total Hours') {
       groupedData.push([...currentGroup]);
       currentGroup = [];
     }
@@ -42,7 +41,7 @@ const Course = () => {
     fetchData();
   }, [selectedDegree]);
 
-  const groupedData = splitGroup(courseData);
+  const groupedData = splitSemester(courseData);
 
   const handleDegreeClick = async (degree) => {
     setSelectedDegree(degree);
