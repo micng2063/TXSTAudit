@@ -105,7 +105,7 @@ function AddCourse() {
                   />
                 </div>
                 <div className="item" style={{ paddingTop: "13px", paddingLeft: "5px" }}>
-                  <button type="submit" variant="contained" onClick={handleSearch}
+                  <button type="submit" onClick={handleSearch}
                     style={{ width: "80px", height: "40px", backgroundColor: "#5aac44", border: "1px #5aac44", color: "#fff", borderRadius: "5px" }}>
                     <FaPlus style={{ paddingRight: "10px", color: "#fff" }} /><strong>Add</strong>
                   </button>
